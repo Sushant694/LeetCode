@@ -1,26 +1,29 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 class Solution {
 public:
-    void maxSubArray(std::vector<int>& nums) {
-        for(int st = 0; st < nums.size(); st++) {
-            for(int end = st; end < nums.size(); end++) {
-                // printing 
-                for(int i = st; i <= end; i++) {
-                    std::cout << nums[i];
-                }
-                std::cout << " ";
-            }
-            std::cout << std::endl;
+    int maxSubArray(std::vector<int>& nums) {
+        int MaxSum = 0;
+        if(nums.size() == 1) {
+            MaxSum = nums[0];
         }
-
+        for(int st = 0; st < nums.size(); st++) {
+            // Using the Brute Force Approach
+            int Sum = 0;
+            for(int end = st; end < nums.size(); end++) {
+                Sum += nums[end];
+                MaxSum = std::max(Sum, MaxSum);
+            }
+        }
+        return MaxSum;
     }
 };
 
 int main() {
     std::vector<int> nums = {5,4,-1,7,8};
     Solution obj;
-    obj.maxSubArray(nums); 
-
+    auto result = obj.maxSubArray(nums); 
+    std::cout << "The maximun subarray of given array is: " << result << std::endl;
     return 0;
 }
