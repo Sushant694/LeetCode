@@ -4,18 +4,17 @@
 class Solution {
 public:
     int maxSubArray(std::vector<int>& nums) {
-        int MaxSum = 0;
-        if(nums.size() == 1) {
-            MaxSum = nums[0];
-        }
-        for(int st = 0; st < nums.size(); st++) {
-            // Using the Brute Force Approach
-            int Sum = 0;
-            for(int end = st; end < nums.size(); end++) {
-                Sum += nums[end];
-                MaxSum = std::max(Sum, MaxSum);
+        // Using the KADANE'S ALGORITHMN
+        int CurrSum = 0, MaxSum = INT_MIN;
+        for(int val: nums) {
+            CurrSum += val;
+            MaxSum = std::max(CurrSum, MaxSum);
+
+            if(CurrSum < 0) {
+                CurrSum = 0;
             }
         }
+
         return MaxSum;
     }
 };
